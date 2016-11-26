@@ -17,6 +17,7 @@
     "url": "https://github.com/michaelsoftware1997/editor/issues"
   },
   "dependencies": {
+    "classnames": "^2.2.5",
     "react": "^0.14.5",
     "react-dom": "^0.14.5",
     "webpack": "^1.13.3"
