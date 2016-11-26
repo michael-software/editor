@@ -6,5 +6,5 @@ import App from './components/App';
 
 ReactDOM.render(
     <Menu/>,
-    document.querySelector('#app')
+    document.querySelector('.appContainer')
 );
