@@ -1,0 +1,51 @@
+.menu__entry {
+  position: relative;
+
+  width: 100px;
+  height: 100px;
+
+  padding: 5px;
+
+  margin: 10px;
+
+  box-sizing: border-box;
+
+  cursor: pointer;
+
+  overflow: hidden;
+
+  transition: background-color .2s;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+
+.menu__entry:hover {
+  background-color: #D9D9D9;
+}
+
+.menu__entry {
+  &__icon {
+    line-height: 60px;
+    font-size: 60px;
+
+    text-align: center;
+  }
+
+  &__title {
+    position: absolute;
+
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    height: 20px;
+
+    text-align: center;
+
+    font-weight: bolder;
+  }
+}
