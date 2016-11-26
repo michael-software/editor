@@ -1,10 +1,10 @@
 import React from 'react';
 
+import MenuContent from './MenuContent';
 export default class Menu extends React.Component {
     render() {
         return(
-            <div>
-                Hallo Admin
+                <MenuContent />
             </div>
         );
     }
