@@ -55,7 +55,7 @@ window.addEventListener("message", (event) => {
 
 ReactDOM.render(
     <div className="app">
-        <Menu/>
+        <Menu />
         <Content />
     </div>,
     document.querySelector('.appContainer')
