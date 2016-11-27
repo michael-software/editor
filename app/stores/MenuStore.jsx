@@ -4,7 +4,9 @@ import {createStore} from 'alt-utils/lib/decorators';
 import MenuActions from '../actions/MenuActions';
 
 @createStore(alt)
-export default class AppStore {
+export default class MenuStore {
+
+    static displayName = 'MenuStore';
 
     constructor() {
         this.bindActions(MenuActions);
