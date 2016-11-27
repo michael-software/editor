@@ -1,13 +1,19 @@
 import React from 'react';
+import classnames from 'classnames';
 
 import './MenuEntry.scss';
 
 export default class MenuEntry extends React.Component {
     render() {
+        let classNames = classnames({
+            fa: true,
+            [this.props.icon]: this.props.icon
+        });
+
         return(
             <div className="menu__entry" onClick={this._onClick.bind(this)}>
                 <div className="menu__entry__icon">
-                    <i className="fa fa-floppy-o" />
+                    <i className={classNames} />
                 </div>
                 <div className="menu__entry__title">
                     {this.props.children}
