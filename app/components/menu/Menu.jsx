@@ -7,6 +7,8 @@ import NewEntry from './entries/NewEntry';
 import SaveEntry from './entries/SaveEntry';
 import OpenEntry from './entries/OpenEntry';
 
+import BoldEntry from './entries/BoldEntry';
+
 import './Menu.scss';
 
 
@@ -19,6 +21,9 @@ export default class Menu extends React.Component {
                     <NewEntry />
                     <OpenEntry />
                     <SaveEntry />
+                </MenuGroup>
+                <MenuGroup name="Format" id="format">
+                    <BoldEntry />
                 </MenuGroup>
 
 
