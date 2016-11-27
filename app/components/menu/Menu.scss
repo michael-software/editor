@@ -1,4 +1,20 @@
+body {
+  margin-top: 150px;
+}
+
+.app {
+  padding-top: 1px;
+}
+
 .menu {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+  right: 0;
+
+  z-index: 10;
+
   background-color: #666666;
   box-shadow: 0 -2px 10px #C6C6C6;
 }
