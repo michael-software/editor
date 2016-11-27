@@ -7,7 +7,9 @@ export default class ContentActions {
     constructor() {
         this.generateActions(
             'setContent',
-            'save'
+            'save',
+            'load',
+            'loadUrl'
         );
     }
 
