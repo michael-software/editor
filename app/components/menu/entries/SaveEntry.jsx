@@ -6,7 +6,7 @@ import ContentActions from '../../../actions/ContentActions'
 export default class SaveEntry extends React.Component {
     render() {
         return(
-            <MenuEntry icon="fa-save" onClick={this._onClick.bind()}>
+            <MenuEntry icon="fa-floppy-o" onClick={this._onClick.bind()}>
                 Speichern
             </MenuEntry>
         );
