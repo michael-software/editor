@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'es6-symbol/implement';
 
+import ContentStore from './stores/ContentStore';
 import ContentActions from './actions/ContentActions';
 
 import './index.scss';
@@ -19,6 +20,16 @@ window.addEventListener('keydown', (event) => {
             case 'f':
                 event.preventDefault();
                 alert('ctrl-f');
+                break;
+            case 'o':
+                event.preventDefault();
+
+                window.fileLoader.show(function(result, type) {
+                    ContentActions.load(result, type);
+                }, function(error) {
+                    alert('Fehler beim Verarbeiten der Datei');
+                });
+
                 break;
             case 'g':
                 event.preventDefault();
