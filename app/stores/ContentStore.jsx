@@ -13,7 +13,8 @@ export default class ContentStore {
 
         this.state = {
             content: "",
-            mime: "text/plain"
+            mime: "text/plain",
+            contentFocused: false
         }
     }
 
@@ -89,5 +90,29 @@ export default class ContentStore {
         xhr.open("GET", url);
         xhr.setRequestHeader("cache-control", "no-cache");
         xhr.send();
+    }
+
+    setLastSelection(selection) {
+        this.state.selection = selection.getRangeAt(0);
+
+        this.setState({
+            contentFocused: false
+        });
+    }
+
+    setFocused() {
+        this.setState({
+            contentFocused: true
+        });
+    }
+
+    lastSelection() {
+        let currentRange = this.state.selection;
+
+        if(this.state.selection) {
+            let selObj = window.getSelection();
+            selObj.removeAllRanges();
+            selObj.addRange(currentRange);
+        }
     }
 }
