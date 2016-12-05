@@ -7,6 +7,7 @@ import classnames from 'classnames';
 import MenuStore from '../../stores/MenuStore';
 import ContentStore from '../../stores/ContentStore';
 import MenuActions from '../../actions/MenuActions';
+import ContentActions from '../../actions/ContentActions';
 
 import './MenuGroup.scss';
 
@@ -39,8 +40,10 @@ export default class MenuGroup extends React.Component {
 
         if(!this.props.type || this.props.type.indexOf(this.props.mime) > -1)
         return(
-            <div className={classNames} onClick={this._onClick.bind(this)}>
-                {this.props.name}
+            <div className={classNames}>
+                <div onClick={this._onClick.bind(this)}>
+                    {this.props.name}
+                </div>
             </div>
         );
 
@@ -57,6 +60,8 @@ export default class MenuGroup extends React.Component {
     }
 
     _onClick() {
+        ContentActions.lastSelection();
+
         MenuActions.setContent(this.props.children);
         MenuActions.setActive(this.props.id);
     }

@@ -32,6 +32,7 @@ export default class ContentArea extends React.Component {
                      contentEditable="true"
                      onKeyDown={this._onKeyDown.bind(this)}
                      onKeyUp={this._onKeyUp.bind(this)}
+                     onChange={this._onKeyUp.bind(this)}
                      dangerouslySetInnerHTML={{__html: this.props.content}}>
                 </div>
             </div>
@@ -39,7 +40,9 @@ export default class ContentArea extends React.Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        if(nextProps.content == this._editor.innerHTML) {
+        if(nextProps.content != this._editor.innerHTML) {
+            return false;
+        } else if(nextProps.selection == window.getSelection()) {
             return false;
         }
 
@@ -48,12 +51,31 @@ export default class ContentArea extends React.Component {
 
     componentDidMount() {
         this._editor.focus();
+
+        this._editor.addEventListener('blur', (event) => {
+            ContentActions.setLastSelection(window.getSelection());
+        }, false);
+
+
+        this._editor.addEventListener('focus', (event) => {
+            ContentActions.setFocused.defer();
+        }, false);
     }
 
     _onKeyDown(event) {
         console.log(event.keyCode);
 
+        let selection = window.getSelection();
+
         if (event.keyCode === 13) { // return
+
+            console.log(selection.anchorNode.tagName, selection.anchorNode.parentNode.tagName);
+
+            if(selection.anchorNode.parentNode.tagName.toLowerCase() == 'li') {
+
+                return;
+            }
+
             if(Browser.getBrowser().name != 'ie')
                 event.preventDefault();
 
@@ -64,8 +86,6 @@ export default class ContentArea extends React.Component {
             }
             return false;
         } else if(event.keyCode == 8) { //delete
-            let selection = window.getSelection();
-
             if(selection.anchorOffset - 4 >= 0) {
                 let anchorOffset = selection.anchorOffset;
 

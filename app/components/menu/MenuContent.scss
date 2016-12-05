@@ -1,7 +1,22 @@
 .menu__content {
-  display: flex;
+  position: relative;
 
   height: 120px;
 
   background-color: #F5F5F5;
+
+  overflow: hidden;
+
+  &--container {
+    position: absolute;
+
+    display: flex;
+
+    left: 0;
+    right: 0;
+    width: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    padding-bottom: 150px;
+  }
 }

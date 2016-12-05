@@ -9,7 +9,10 @@ export default class ContentActions {
             'setContent',
             'save',
             'load',
-            'loadUrl'
+            'loadUrl',
+            'setLastSelection',
+            'lastSelection',
+            'setFocused'
         );
     }
 

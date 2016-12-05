@@ -23,9 +23,22 @@ export default class MenuContent extends React.Component {
 
     render() {
         return(
-            <div className="menu__content">
-                {this.props.content}
+            <div className="menu__content" ref={(div) => this._menuContent = div}>
+                <div className="menu__content--container" ref={(div) => this._menuContentContainer = div}>
+                    {this.props.content}
+                </div>
             </div>
         );
+    }
+
+    componentDidMount() {
+        this._menuContent.addEventListener("mousewheel", (event) => {
+            event.preventDefault();
+
+            this._menuContentContainer.scrollLeft += event.deltaY;
+
+
+            console.log(event);
+        }, false);
     }
 }
