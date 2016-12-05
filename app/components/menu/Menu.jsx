@@ -22,7 +22,7 @@ export default class Menu extends React.Component {
                     <OpenEntry />
                     <SaveEntry />
                 </MenuGroup>
-                <MenuGroup name="Format" id="format">
+                <MenuGroup name="Format" id="format" type={['text/html']}>
                     <BoldEntry />
                 </MenuGroup>
 
