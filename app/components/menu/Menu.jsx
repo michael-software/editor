@@ -12,6 +12,9 @@ import ItalicEntry from './entries/ItalicEntry';
 import UnderlineEntry from './entries/UnderlineEntry';
 
 import HeadlineEntry from './entries/HeadlineEntry';
+
+import ListEntry from './entries/ListEntry';
+
 import './Menu.scss';
 
 
@@ -35,6 +38,9 @@ export default class Menu extends React.Component {
                     <HeadlineEntry size={3} />
                     <HeadlineEntry size={4} />
                     <HeadlineEntry size={5} />
+
+                    <ListEntry type="ul" />
+                    <ListEntry type="ol" />
                 </MenuGroup>
 
 
