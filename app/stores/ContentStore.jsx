@@ -12,7 +12,8 @@ export default class ContentStore {
         this.bindActions(ContentActions);
 
         this.state = {
-            content: ""
+            content: "",
+            mime: "text/plain"
         }
     }
 
@@ -27,13 +28,17 @@ export default class ContentStore {
     }
 
     save() {
-        let content = this.state.content.replace(/<wbr>/g, '');
-        content = content.replace(/<p>/g, '').replace(/<\/p>/g, '<br />');
+        let content = this.state.content;
 
-        if(this.state.mime == "text/plain") {
-            content = content.replace(/<br \/>/g, "\n");
-            content = content.replace(/&nbsp;&nbsp;&nbsp;&nbsp;/g, "\t").replace(/ &nbsp;&nbsp;&nbsp;/g, "\t").replace(/ &nbsp; &nbsp;/g, "\t").replace(/&nbsp; &nbsp; /g, "\t");
+        if(this.state.mime != 'text/plain') {
+            content = content.replace(/<wbr>/g, '');
+            content = content.replace(/<p>/g, '').replace(/<\/p>/g, '<br />');
         }
+
+        // if(this.state.mime == "text/plain") {
+        //     content = content.replace(/<br \/>/g, "\n");
+        //     content = content.replace(/&nbsp;&nbsp;&nbsp;&nbsp;/g, "\t").replace(/ &nbsp;&nbsp;&nbsp;/g, "\t").replace(/ &nbsp; &nbsp;/g, "\t").replace(/&nbsp; &nbsp; /g, "\t");
+        // }
 
         if(window == window.top) {
             console.log('save', content);
@@ -57,10 +62,10 @@ export default class ContentStore {
 
         var r = true;
         if (r == true) {
-            if(mime == "text/plain") {
-                content = content.replace(/</g, '&lt').replace(/>/g, '&gt;');
-                content = content.replace(/\n/g, '<br />').replace(/\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;');
-            }
+            // if(mime == "text/plain") {
+            //     content = content.replace(/</g, '&lt').replace(/>/g, '&gt;');
+            //     content = content.replace(/\n/g, '<br />').replace(/\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;');
+            // }
 
             this.setState({
                 mime: mime,
