@@ -9,6 +9,7 @@ import OpenEntry from './entries/OpenEntry';
 
 import BoldEntry from './entries/BoldEntry';
 import ItalicEntry from './entries/ItalicEntry';
+import UnderlineEntry from './entries/UnderlineEntry';
 
 import './Menu.scss';
 
@@ -26,6 +27,7 @@ export default class Menu extends React.Component {
                 <MenuGroup name="Format" id="format" type={['text/html']}>
                     <BoldEntry />
                     <ItalicEntry />
+                    <UnderlineEntry />
                 </MenuGroup>
 
 
