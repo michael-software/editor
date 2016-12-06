@@ -36,9 +36,6 @@ export default class MenuContent extends React.Component {
             event.preventDefault();
 
             this._menuContentContainer.scrollLeft += event.deltaY;
-
-
-            console.log(event);
         }, false);
     }
 }
