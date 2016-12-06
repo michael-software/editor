@@ -52,11 +52,19 @@ export default class MenuGroup extends React.Component {
 
     componentDidMount() {
         if(this.props.defaultOpen) {
-            window.setTimeout(() => {
-                MenuActions.setContent(this.props.children);
-                MenuActions.setActive(this.props.id);
-            }, 0);
+            CallbackHelper.register('menu-reset', () => {
+                this._setActive();
+            }, true);
+
+            this._setActive();
         }
+    }
+
+    _setActive() {
+        window.setTimeout(() => {
+            MenuActions.setContent(this.props.children);
+            MenuActions.setActive(this.props.id);
+        }, 0);
     }
 
     _onClick() {
