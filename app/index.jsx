@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'es6-symbol/implement';
 
-import ContentStore from './stores/ContentStore';
+import CallbackHelper from './utils/CallbackHelper';
 import ContentActions from './actions/ContentActions';
 
 import './index.scss';
@@ -50,9 +50,11 @@ window.addEventListener("message", (event) => {
 
         switch(data.action) {
             case 'load':
+                CallbackHelper.call('menu-reset');
                 ContentActions.load(data.value, data.type || data.mime || 'text/plain');
                 break;
             case 'open':
+                CallbackHelper.call('menu-reset');
                 ContentActions.loadUrl(data.value, data.type || data.mime || 'text/plain');
                 break;
             default:
