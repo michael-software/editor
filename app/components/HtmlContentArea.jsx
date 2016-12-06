@@ -7,12 +7,18 @@ import Browser from '../utils/Browser';
 import ContentStore from '../stores/ContentStore';
 import ContentActions from '../actions/ContentActions';
 
+import CallbackHelper from '../utils/CallbackHelper';
+
 import StringHelper from '../utils/StringHelper';
 
 import './HtmlContentArea.scss';
 
 @connectToStores
-export default class ContentArea extends React.Component {
+export default class HtmlContentArea extends React.Component {
+
+    constructor() {
+        super();
+    }
 
     static getStores() {
         return [ContentStore];
@@ -39,21 +45,28 @@ export default class ContentArea extends React.Component {
         );
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        if(nextProps.content != this._editor.innerHTML) {
-            return false;
-        } else if(nextProps.selection == window.getSelection()) {
-            return false;
+    _focus() {
+        //this._editor.focus();
+        if(this._lastRange) {
+            let selObj = window.getSelection();
+            selObj.removeAllRanges();
+            selObj.addRange(this._lastRange);
         }
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
 
         return true;
     }
 
     componentDidMount() {
+        CallbackHelper.register("content-focus", this._focus.bind(this), true);
+        CallbackHelper.register("content-getContent", this._getContent.bind(this), true);
+
         this._editor.focus();
 
         this._editor.addEventListener('blur', (event) => {
-            ContentActions.setLastSelection(window.getSelection());
+            this._lastRange = window.getSelection().getRangeAt(0);
         }, false);
 
 
@@ -151,7 +164,10 @@ export default class ContentArea extends React.Component {
         }
     }
 
+    _getContent() {
+        return this._editor.innerHTML;
+    }
+
     _onKeyUp() {
-        ContentActions.setContent(this._editor.innerHTML);
     }
 }
