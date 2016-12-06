@@ -3,6 +3,8 @@ import alt from '../alt';
 import {createStore} from 'alt-utils/lib/decorators';
 import ContentActions from '../actions/ContentActions';
 
+import CallbackHelper from '../utils/CallbackHelper';
+
 @createStore(alt)
 export default class ContentStore {
 
@@ -29,27 +31,30 @@ export default class ContentStore {
     }
 
     save() {
-        let content = this.state.content;
+        let content = CallbackHelper.call('content-getContent');
 
-        if(this.state.mime != 'text/plain') {
-            content = content.replace(/<wbr>/g, '');
-            content = content.replace(/<p>/g, '').replace(/<\/p>/g, '<br />');
-        }
 
-        // if(this.state.mime == "text/plain") {
-        //     content = content.replace(/<br \/>/g, "\n");
-        //     content = content.replace(/&nbsp;&nbsp;&nbsp;&nbsp;/g, "\t").replace(/ &nbsp;&nbsp;&nbsp;/g, "\t").replace(/ &nbsp; &nbsp;/g, "\t").replace(/&nbsp; &nbsp; /g, "\t");
-        // }
+        if(content != undefined) {
+            if (this.state.mime != 'text/plain') {
+                content = content.replace(/<wbr>/g, '');
+                content = content.replace(/<p>/g, '').replace(/<\/p>/g, '<br />');
+            }
 
-        if(window == window.top) {
-            console.log('save', content);
-        } else {
-            let data = JSON.stringify({
-                'action': 'save',
-                'value': content
-            });
+            // if(this.state.mime == "text/plain") {
+            //     content = content.replace(/<br \/>/g, "\n");
+            //     content = content.replace(/&nbsp;&nbsp;&nbsp;&nbsp;/g, "\t").replace(/ &nbsp;&nbsp;&nbsp;/g, "\t").replace(/ &nbsp; &nbsp;/g, "\t").replace(/&nbsp; &nbsp; /g, "\t");
+            // }
 
-            parent.postMessage(data, "*");
+            if (window == window.top) {
+                console.log('save', content);
+            } else {
+                let data = JSON.stringify({
+                    'action': 'save',
+                    'value': content
+                });
+
+                parent.postMessage(data, "*");
+            }
         }
     }
 
