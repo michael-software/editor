@@ -1,6 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
 
+import CallbackHelper from '../../utils/CallbackHelper';
+
 import './MenuEntry.scss';
 
 export default class MenuEntry extends React.Component {
@@ -28,7 +30,9 @@ export default class MenuEntry extends React.Component {
     }
 
     _onClick() {
-        if(this.props.onClick)
+        if(this.props.onClick) {
+            CallbackHelper.call('content-focus'); // For IE
             this.props.onClick();
+        }
     }
 }

@@ -7,7 +7,8 @@ import classnames from 'classnames';
 import MenuStore from '../../stores/MenuStore';
 import ContentStore from '../../stores/ContentStore';
 import MenuActions from '../../actions/MenuActions';
-import ContentActions from '../../actions/ContentActions';
+
+import CallbackHelper from '../../utils/CallbackHelper';
 
 import './MenuGroup.scss';
 
@@ -52,15 +53,23 @@ export default class MenuGroup extends React.Component {
 
     componentDidMount() {
         if(this.props.defaultOpen) {
-            window.setTimeout(() => {
-                MenuActions.setContent(this.props.children);
-                MenuActions.setActive(this.props.id);
-            }, 0);
+            CallbackHelper.register('menu-reset', () => {
+                this._setActive();
+            }, true);
+
+            this._setActive();
         }
     }
 
+    _setActive() {
+        window.setTimeout(() => {
+            MenuActions.setContent(this.props.children);
+            MenuActions.setActive(this.props.id);
+        }, 0);
+    }
+
     _onClick() {
-        ContentActions.lastSelection();
+        CallbackHelper.call('content-focus');
 
         MenuActions.setContent(this.props.children);
         MenuActions.setActive(this.props.id);

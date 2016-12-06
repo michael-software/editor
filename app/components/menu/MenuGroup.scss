@@ -7,6 +7,12 @@
 
   cursor: default;
 
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+
   &--active {
     background-color: #F5F5F5;
   }
