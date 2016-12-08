@@ -8,8 +8,10 @@ import ContentActions from './actions/ContentActions';
 import './index.scss';
 
 import Menu from './components/menu/Menu';
-import Content from './components/ContentArea';
+import Content from './components/content/ContentArea';
+
 import Overlay from './components/ui/Overlay';
+import Dialog from './components/ui/Dialog';
 
 window.addEventListener('keydown', (event) => {
     if (event.ctrlKey || event.metaKey) {
@@ -74,6 +76,7 @@ ReactDOM.render(
         <Menu />
         <Content />
         <Overlay />
+        <Dialog />
     </div>,
     document.querySelector('.appContainer')
 );
