@@ -1,0 +1,79 @@
+.appContainer > .app > .dialog {
+  display: inline-block;
+
+  position: fixed;
+
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+
+  max-width: 80%;
+  max-height: 80%;
+
+  padding: 15px;
+
+  background-color: #E8E8E8;
+
+  z-index: 10;
+
+
+  .dialog__title {
+    margin: 0 0 15px;
+    font-size: 20px;
+  }
+
+  .dialog__content {
+    display: inline-block;
+  }
+
+  .dialog__actions {
+    display: flex;
+
+    margin-top: 15px;
+
+    div {
+      flex-grow: 1;
+    }
+
+    div:first-of-type {
+      margin-left: 0;
+    }
+
+    div:last-of-type {
+      margin-right: 0;
+    }
+  }
+}
+
+.dialog .button {
+  background-color: #C6C6C6;
+
+  min-width: 100px;
+
+  margin: 5px;
+  padding: 5px;
+
+  cursor: pointer;
+
+  text-align: center;
+
+  &:hover {
+    background-color: #B6B6B6;
+  }
+}
+
+.dialog input {
+
+  padding: 5px;
+  outline: 0;
+
+  border: 1px solid #E8E8E8;
+
+  max-width: 100%;
+
+  &:focus {
+    border-color: #C6C6C6;
+  }
+}
