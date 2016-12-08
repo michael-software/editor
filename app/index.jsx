@@ -9,6 +9,7 @@ import './index.scss';
 
 import Menu from './components/menu/Menu';
 import Content from './components/ContentArea';
+import Overlay from './components/ui/Overlay';
 
 window.addEventListener('keydown', (event) => {
     if (event.ctrlKey || event.metaKey) {
@@ -72,6 +73,7 @@ ReactDOM.render(
     <div className="app">
         <Menu />
         <Content />
+        <Overlay />
     </div>,
     document.querySelector('.appContainer')
 );
