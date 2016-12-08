@@ -13,7 +13,8 @@ export default class MenuStore {
 
         this.state = {
             content: [],
-            active: 0
+            active: 0,
+            inView: {}
         }
     }
 
@@ -31,6 +32,24 @@ export default class MenuStore {
         this.setState({
             active: id
         })
+    }
+
+    setInView(params) {
+        let type = params[0];
+        let value = params[1];
+
+        let inView = this.state.inView;
+        inView[type] = value;
+
+        this.setState({
+            inView: inView
+        });
+    }
+
+    resetInView() {
+        this.setState({
+            inView: {}
+        });
     }
 
 }
