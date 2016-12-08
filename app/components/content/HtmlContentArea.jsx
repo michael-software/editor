@@ -2,14 +2,16 @@ import React from 'react';
 import assign from 'object-assign';
 import connectToStores from 'alt-utils/lib/connectToStores';
 
-import Browser from '../utils/Browser';
+import Browser from '../../utils/Browser';
 
-import ContentStore from '../stores/ContentStore';
-import ContentActions from '../actions/ContentActions';
+import ContentStore from '../../stores/ContentStore';
+import ContentActions from '../../actions/ContentActions';
 
-import CallbackHelper from '../utils/CallbackHelper';
+import CallbackHelper from '../../utils/CallbackHelper';
 
-import StringHelper from '../utils/StringHelper';
+import StringHelper from '../../utils/StringHelper';
+
+import MenuActions from '../../actions/MenuActions';
 
 import './HtmlContentArea.scss';
 
@@ -72,6 +74,13 @@ export default class HtmlContentArea extends React.Component {
 
         this._editor.addEventListener('focus', (event) => {
             ContentActions.setFocused.defer();
+        }, false);
+
+        document.addEventListener("selectionchange", (e) => {
+            MenuActions.resetInView();
+
+            if(window.getSelection().rangeCount)
+                this._getParentNode(window.getSelection().getRangeAt(0).startContainer);
         }, false);
     }
 
@@ -166,6 +175,46 @@ export default class HtmlContentArea extends React.Component {
 
     _getContent() {
         return this._editor.innerHTML;
+    }
+
+    _getParentNode(node) {
+        if(!node.parentNode || !node.parentNode.classList || (node.parentNode && node.parentNode.classList && !node.parentNode.classList.contains('content-area'))) {
+            this._getParentNode(node.parentNode);
+        }
+
+        if(node && node.tagName) {
+            switch (node.tagName.toLowerCase()) {
+                case 'a':
+                    MenuActions.setInView('link', node.href);
+                    break;
+                case 'h1':
+                    MenuActions.setInView('h1', true);
+                    break;
+                case 'h2':
+                    MenuActions.setInView('h2', true);
+                    break;
+                case 'h3':
+                    MenuActions.setInView('h3', true);
+                    break;
+                case 'h4':
+                    MenuActions.setInView('h4', true);
+                    break;
+                case 'h5':
+                    MenuActions.setInView('h5', true);
+                    break;
+                case 'b':
+                    MenuActions.setInView('b', true);
+                    break;
+                case 'i':
+                    MenuActions.setInView('i', true);
+                    break;
+                case 'u':
+                    MenuActions.setInView('u', true);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     _onKeyUp() {

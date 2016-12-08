@@ -2,10 +2,10 @@ import React from 'react';
 import assign from 'object-assign';
 import connectToStores from 'alt-utils/lib/connectToStores';
 
-import ContentStore from '../stores/ContentStore';
-import ContentActions from '../actions/ContentActions';
+import ContentStore from '../../stores/ContentStore';
+import ContentActions from '../../actions/ContentActions';
 
-import CallbackHelper from '../utils/CallbackHelper';
+import CallbackHelper from '../../utils/CallbackHelper';
 
 
 import './PlainContentArea.scss';
@@ -62,6 +62,7 @@ export default class PlainContentArea extends React.Component {
         });
 
         this._textarea.addEventListener('blur', (event) => {
+            if(this._textarea)
             this._lastRange = {
                 start: this._textarea.selectionStart,
                 end: this._textarea.selectionEnd
@@ -81,7 +82,7 @@ export default class PlainContentArea extends React.Component {
     }
 
     _focus() {
-        if(this._lastRange) {
+        if(this._lastRange && this._textarea) {
             this._textarea.focus();
 
             this._textarea.selectionStart = this._lastRange.start;

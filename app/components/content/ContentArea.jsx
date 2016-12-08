@@ -2,7 +2,7 @@ import React from 'react';
 import assign from 'object-assign';
 import connectToStores from 'alt-utils/lib/connectToStores';
 
-import ContentStore from '../stores/ContentStore';
+import ContentStore from '../../stores/ContentStore';
 
 import HtmlContentArea from './HtmlContentArea';
 import PlainContentArea from './PlainContentArea';
