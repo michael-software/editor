@@ -15,6 +15,8 @@ import HeadlineEntry from './entries/HeadlineEntry';
 
 import ListEntry from './entries/ListEntry';
 
+import LinkEntry from './entries/LinkEntry';
+
 import './Menu.scss';
 
 
@@ -41,6 +43,8 @@ export default class Menu extends React.Component {
 
                     <ListEntry type="ul" />
                     <ListEntry type="ol" />
+
+                    <LinkEntry />
                 </MenuGroup>
 
 
