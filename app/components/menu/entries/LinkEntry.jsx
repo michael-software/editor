@@ -36,6 +36,6 @@ export default class LinkEntry extends React.Component {
     }
 
     _onClick() {
-       UiActions.openDialog(UiStore.LINK_DIALOG);
+       UiActions.openDialog(UiStore.LINK_DIALOG, this.props.inView['link']);
     }
 }
