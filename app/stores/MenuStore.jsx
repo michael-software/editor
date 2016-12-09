@@ -3,6 +3,8 @@ import alt from '../alt';
 import {createStore} from 'alt-utils/lib/decorators';
 import MenuActions from '../actions/MenuActions';
 
+import CallbackHelper from '../utils/CallbackHelper';
+
 @createStore(alt)
 export default class MenuStore {
 
@@ -50,6 +52,8 @@ export default class MenuStore {
         this.setState({
             inView: {}
         });
+
+        CallbackHelper.call('content-setSelection');
     }
 
 }

@@ -20,9 +20,13 @@ export default class Dialog extends React.Component {
     }
 
     render() {
+
+        let data = null;
+        if(this.props.dialogData) data = this.props.dialogData;
+
         switch(this.props.dialog) {
             case UiStore.LINK_DIALOG:
-                return (<LinkDialog />);
+                return (<LinkDialog data={data} />);
             default:
                 return null;
         }

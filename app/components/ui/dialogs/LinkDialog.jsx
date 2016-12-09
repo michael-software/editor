@@ -16,7 +16,8 @@ export default class LinkDialog extends React.Component {
                        ref={(input) => this._inputUrl = input}
                        placeholder="http://"
                        style={{width: '300px'}}
-                       onKeyDown={this._onKeyDown.bind(this)} />
+                       onKeyDown={this._onKeyDown.bind(this)}
+                       defaultValue={this.props.data}/>
             </AbstractDialog>
         );
     }
@@ -30,7 +31,12 @@ export default class LinkDialog extends React.Component {
 
         window.setTimeout(() => {
             CallbackHelper.call('content-focus');
-            document.execCommand('createLink', false, url);
+
+            if(this.props.data && this.props.data.href) {
+                this.props.data.href = url;
+            } else {
+                document.execCommand('createLink', false, url);
+            }
         }, 50);
         console.log(this._inputUrl.value);
     }

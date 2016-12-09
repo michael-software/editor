@@ -78,10 +78,16 @@ export default class HtmlContentArea extends React.Component {
 
         document.addEventListener("selectionchange", (e) => {
             MenuActions.resetInView();
-
-            if(window.getSelection().rangeCount)
-                this._getParentNode(window.getSelection().getRangeAt(0).startContainer);
         }, false);
+
+        CallbackHelper.register('content-setSelection', this._setSelection.bind(this));
+    }
+
+    _setSelection() {
+        window.setTimeout(() => {
+            if (window.getSelection().rangeCount)
+                this._getParentNode(window.getSelection().getRangeAt(0).startContainer);
+        }, 0);
     }
 
     _onKeyDown(event) {
@@ -178,14 +184,14 @@ export default class HtmlContentArea extends React.Component {
     }
 
     _getParentNode(node) {
-        if(!node.parentNode || !node.parentNode.classList || (node.parentNode && node.parentNode.classList && !node.parentNode.classList.contains('content-area'))) {
+        if(node.parentNode && ( !node.parentNode.classList || (node.parentNode.classList && !node.parentNode.classList.contains('content-area'))) ) {
             this._getParentNode(node.parentNode);
         }
 
         if(node && node.tagName) {
             switch (node.tagName.toLowerCase()) {
                 case 'a':
-                    MenuActions.setInView('link', node.href);
+                    MenuActions.setInView('link', node);
                     break;
                 case 'h1':
                     MenuActions.setInView('h1', true);
