@@ -42,6 +42,12 @@ window.addEventListener('keydown', (event) => {
     }
 }, false);
 
+// window.onbeforeunload = function(e) {
+//     var dialogText = 'Ungespeicherte Änderungen';
+//     e.returnValue = dialogText;
+//     return dialogText;
+// };
+
 window.addEventListener("message", (event) => {
     if (event.origin === "http://example.com:8080") // TODO
         return;
