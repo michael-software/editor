@@ -3,8 +3,11 @@ import assign from 'object-assign';
 import connectToStores from 'alt-utils/lib/connectToStores';
 
 import UiStore from '../../stores/UiStore';
+import UiActions from '../../actions/UiActions';
 
 import LinkDialog from './dialogs/LinkDialog';
+
+import CallbackHelper from '../../utils/CallbackHelper';
 
 @connectToStores
 export default class Dialog extends React.Component {
@@ -30,5 +33,16 @@ export default class Dialog extends React.Component {
             default:
                 return null;
         }
+    }
+
+    componentDidMount() {
+        document.addEventListener('keydown', (event) => {
+            if(event.keyCode == 27 && this.props.dialog) {
+                UiActions.hideDialogs();
+                UiActions.hideOverlay();
+
+                CallbackHelper.call('content-focus');
+            }
+        }, false);
     }
 }
