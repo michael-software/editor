@@ -7,7 +7,9 @@ export default class MenuActions {
     constructor() {
         this.generateActions(
             'setContent',
-            'setActive'
+            'setActive',
+            'setInView',
+            'resetInView'
         );
     }
 

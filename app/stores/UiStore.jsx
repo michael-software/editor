@@ -14,7 +14,8 @@ export default class UiStore {
 
         this.state = {
             showOverlay: false,
-            dialog: null
+            dialog: null,
+            dialogData: null
         }
     }
 
@@ -34,15 +35,20 @@ export default class UiStore {
         });
     }
 
-    openDialog(dialogId) {
+    openDialog(input) {
+        let dialogId = input[0];
+        let node = input[1];
+
         this.setState({
-            dialog: dialogId
+            dialog: dialogId,
+            dialogData: node
         });
     }
 
     hideDialogs() {
         this.setState({
-            dialog: null
+            dialog: null,
+            dialogData: null
         })
     }
 }
