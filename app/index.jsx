@@ -66,6 +66,9 @@ window.addEventListener("message", (event) => {
                 CallbackHelper.call('menu-reset');
                 ContentActions.loadUrl(data.value, data.type || data.mime || 'text/plain');
                 break;
+            case 'getContent':
+                ContentActions.save(true);
+                break;
             default:
                 console.warn('action not found');
                 break;
