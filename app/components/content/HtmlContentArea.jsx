@@ -217,6 +217,19 @@ export default class HtmlContentArea extends React.Component {
                 case 'u':
                     MenuActions.setInView('u', true);
                     break;
+                case 'div':
+                    if(node.style) {
+                        if(node.style.textAlign == 'center') {
+                            MenuActions.setInView('align-center', true);
+                        } else if(node.style.textAlign == 'right') {
+                            MenuActions.setInView('align-right', true);
+                        } else if(node.style.textAlign == 'justify') {
+                            MenuActions.setInView('align-justify', true);
+                        } else if(node.style.textAlign == 'left') {
+                            MenuActions.setInView('align-left', true);
+                        }
+                    }
+                    break;
                 default:
                     break;
             }
