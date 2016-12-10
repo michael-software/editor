@@ -15,7 +15,7 @@ export default class ContentStore {
 
         this.state = {
             content: "",
-            mime: "text/plain",
+            mime: "text/html",
             contentFocused: false
         }
     }
