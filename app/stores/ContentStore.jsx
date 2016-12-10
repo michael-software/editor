@@ -30,7 +30,7 @@ export default class ContentStore {
         });
     }
 
-    save() {
+    save(getContent) {
         let content = CallbackHelper.call('content-getContent');
 
 
@@ -48,12 +48,16 @@ export default class ContentStore {
             if (window == window.top) {
                 console.log('save', content);
             } else {
-                let data = JSON.stringify({
+                let data = {
                     'action': 'save',
                     'value': content
-                });
+                };
 
-                parent.postMessage(data, "*");
+                if(getContent) {
+                    data.action = 'setContent';
+                }
+
+                parent.postMessage(JSON.stringify(data), "*");
             }
         }
     }
