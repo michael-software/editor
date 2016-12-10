@@ -17,6 +17,8 @@ import ListEntry from './entries/ListEntry';
 
 import LinkEntry from './entries/LinkEntry';
 
+import AlignEntry from './entries/AlignEntry';
+
 import './Menu.scss';
 
 
@@ -45,6 +47,11 @@ export default class Menu extends React.Component {
                     <ListEntry type="ol" />
 
                     <LinkEntry />
+
+                    <AlignEntry />
+                    <AlignEntry type="center" />
+                    <AlignEntry type="right" />
+                    <AlignEntry type="justify" />
                 </MenuGroup>
 
 
