@@ -7,7 +7,8 @@ export default class ConfigActions {
     constructor() {
         this.generateActions(
             'update',
-            'autosync'
+            'autosync',
+            'autoresize'
         );
     }
 

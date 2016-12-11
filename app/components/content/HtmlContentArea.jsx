@@ -14,6 +14,9 @@ import StringHelper from '../../utils/StringHelper';
 
 import MenuActions from '../../actions/MenuActions';
 
+import MessageHelper from '../../utils/MessageHelper';
+import CompatibleIt from '../../utils/CompatibleIt';
+
 import './HtmlContentArea.scss';
 
 @connectToStores
@@ -58,6 +61,19 @@ export default class HtmlContentArea extends React.Component {
         }
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if(this.props.autoresize && prevProps.content !== this.props.content) {
+            var element = document.querySelector('.appContainer');
+            var height = Math.max(element.scrollHeight, element.offsetHeight);
+            var style = CompatibleIt.getStyle(document.body);
+
+            MessageHelper.postMessage({
+                action: 'setHeight',
+                value: height + parseInt(style.marginTop) + parseInt(style.marginBottom)
+            });
+        }
+    }
+
     shouldComponentUpdate(nextProps, nextState) {
 
         return true;
@@ -93,7 +109,6 @@ export default class HtmlContentArea extends React.Component {
     }
 
     _onKeyDown(event) {
-        console.log(event.keyCode);
 
         let selection = window.getSelection();
 
@@ -114,6 +129,9 @@ export default class HtmlContentArea extends React.Component {
             } else if(Browser.getBrowser().name == 'edge') {
                 document.execCommand('insertHTML', false, "<br><wbr>");
             }
+
+            this._autoresize();
+
             return false;
         } else if(event.keyCode == 8) { //delete
             if(selection.anchorOffset - 4 >= 0) {
@@ -129,6 +147,8 @@ export default class HtmlContentArea extends React.Component {
                     range.collapse(true);
                     selection.removeAllRanges();
                     selection.addRange(range);
+
+                    this._autoresize();
 
                     event.preventDefault();
                     return false;
@@ -155,6 +175,8 @@ export default class HtmlContentArea extends React.Component {
                     selection.removeAllRanges();
                     selection.addRange(range);
 
+                    this._autoresize();
+
                     event.preventDefault();
                     return false;
                 }
@@ -174,14 +196,34 @@ export default class HtmlContentArea extends React.Component {
                     selection.removeAllRanges();
                     selection.addRange(range);
 
+                    this._autoresize();
+
                     event.preventDefault();
                     return false;
                 }
             }
         }
 
+        this._autoresize();
+
         if(this.props.autosync)
             ContentActions.save();
+    }
+
+    _autoresize() {
+        console.log('autoresize', this.props.autoresize);
+        if(this.props.autoresize) {
+            var element = document.querySelector('.appContainer');
+
+            var height = Math.max( element.scrollHeight, element.offsetHeight );
+
+            var style = CompatibleIt.getStyle(document.body);
+
+            MessageHelper.postMessage({
+                action: 'setHeight',
+                value: height + parseInt(style.marginTop) + parseInt(style.marginBottom)
+            })
+        }
     }
 
     _getContent() {

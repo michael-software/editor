@@ -77,6 +77,9 @@ window.addEventListener("message", (event) => {
             case 'enableAutosync':
                 ConfigActions.autosync();
                 break;
+            case 'autoResize':
+                ConfigActions.autoresize();
+                break;
             default:
                 console.warn('action not found');
                 break;
