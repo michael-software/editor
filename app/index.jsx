@@ -4,6 +4,7 @@ import 'es6-symbol/implement';
 
 import CallbackHelper from './utils/CallbackHelper';
 import ContentActions from './actions/ContentActions';
+import ConfigActions from './actions/ConfigActions';
 
 import './index.scss';
 
@@ -69,6 +70,10 @@ window.addEventListener("message", (event) => {
             case 'getContent':
                 ContentActions.save(true);
                 break;
+            case 'updateConfig':
+                console.log('updateConfig', data.value);
+                ConfigActions.update(data.value);
+                break;
             default:
                 console.warn('action not found');
                 break;
@@ -76,8 +81,6 @@ window.addEventListener("message", (event) => {
     } catch(ex) {
         console.warn('Error while parsing message', ex);
     }
-
-    console.log('editor', JSON.parse(event.data));
 }, false);
 
 ReactDOM.render(
