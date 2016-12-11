@@ -98,7 +98,9 @@ export default class Menu extends React.Component {
             }, 0);
         }
 
-        return retval;
+        if(retval.length > 1) return retval;
+
+        return null;
     }
 
     _renderMenuContent() {
