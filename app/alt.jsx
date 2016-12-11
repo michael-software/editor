@@ -1,2 +1,6 @@
 import Alt from 'alt';
-export default new Alt();
+import createLogger from 'alt-logger';
+
+export default createLogger(new Alt());
+
+// export default new Alt();
