@@ -15,7 +15,7 @@ export default class MenuStore {
 
         this.state = {
             content: [],
-            active: 0,
+            active: 'file',
             inView: {}
         }
     }
@@ -24,11 +24,6 @@ export default class MenuStore {
      * Updates the list of todos in the state.
      * @param todos
      */
-    setContent(content) {
-        this.setState({
-            content: content
-        });
-    }
 
     setActive(id) {
         this.setState({
