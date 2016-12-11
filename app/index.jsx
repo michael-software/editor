@@ -74,6 +74,9 @@ window.addEventListener("message", (event) => {
                 console.log('updateConfig', data.value);
                 ConfigActions.update(data.value);
                 break;
+            case 'enableAutosync':
+                ConfigActions.autosync();
+                break;
             default:
                 console.warn('action not found');
                 break;
