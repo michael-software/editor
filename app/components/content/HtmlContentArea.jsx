@@ -5,6 +5,7 @@ import connectToStores from 'alt-utils/lib/connectToStores';
 import Browser from '../../utils/Browser';
 
 import ContentStore from '../../stores/ContentStore';
+import ConfigStore from '../../stores/ConfigStore';
 import ContentActions from '../../actions/ContentActions';
 
 import CallbackHelper from '../../utils/CallbackHelper';
@@ -23,12 +24,13 @@ export default class HtmlContentArea extends React.Component {
     }
 
     static getStores() {
-        return [ContentStore];
+        return [ContentStore, ConfigStore];
     }
 
     static getPropsFromStores() {
         return assign({},
-            ContentStore.getState()
+            ContentStore.getState(),
+            ConfigStore.getState()
         );
     }
 
@@ -177,6 +179,9 @@ export default class HtmlContentArea extends React.Component {
                 }
             }
         }
+
+        if(this.props.autosync)
+            ContentActions.save();
     }
 
     _getContent() {

@@ -21,4 +21,10 @@ export default class ConfigStore {
     update(config) {
         this.setState(config);
     }
+
+    autosync() {
+        this.setState({
+            autosync: true
+        });
+    }
 }
