@@ -3,6 +3,7 @@ import assign from 'object-assign';
 import connectToStores from 'alt-utils/lib/connectToStores';
 import ConfigStore from '../../stores/ConfigStore';
 import MenuStore from '../../stores/MenuStore';
+import MenuActions from '../../actions/MenuActions';
 
 import MenuGroup from './MenuGroup';
 import MenuContent from './MenuContent';
@@ -52,32 +53,49 @@ export default class Menu extends React.Component {
 
     _renderMenuGroups() {
         let retval = [];
+        let active = this.props.active;
         let defaultOpen = true;
 
 
         if(this._isGroupVisible('file')) {
+            if(active == null) {
+                active = 'file';
+            }
+
             retval.push(
                 <MenuGroup name="Datei"
                            key='file'
                            id="file"
                            defaultOpen={defaultOpen}
-                           isActive={this.props.active == 'file'}/>
+                           isActive={active == 'file'}/>
             );
 
             defaultOpen = false;
+        } else if(active == 'file') {
+            active = null;
         }
 
         if(this._isGroupVisible('format')) {
+            if(active == null) {
+                active = 'format';
+            }
+
             retval.push(
                 <MenuGroup name="Format"
                            key='format'
                            id="format"
                            type={['text/html']}
                            defaultOpen={defaultOpen}
-                           isActive={this.props.active == 'format'}/>
+                           isActive={active == 'format'}/>
             );
 
             defaultOpen = false;
+        }
+
+        if(active != this.props.active) {
+            window.setTimeout(() => {
+                MenuActions.setActive(active);
+            }, 0);
         }
 
         return retval;
