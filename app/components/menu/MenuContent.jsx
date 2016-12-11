@@ -25,7 +25,7 @@ export default class MenuContent extends React.Component {
         return(
             <div className="menu__content" ref={(div) => this._menuContent = div}>
                 <div className="menu__content--container" ref={(div) => this._menuContentContainer = div}>
-                    {this.props.content}
+                    {this.props.children}
                 </div>
             </div>
         );

@@ -4,7 +4,6 @@ import connectToStores from 'alt-utils/lib/connectToStores';
 
 import classnames from 'classnames';
 
-import MenuStore from '../../stores/MenuStore';
 import ContentStore from '../../stores/ContentStore';
 import MenuActions from '../../actions/MenuActions';
 
@@ -21,22 +20,28 @@ export default class MenuGroup extends React.Component {
     };
 
     static getStores() {
-        return [MenuStore, ContentStore];
+        return [ContentStore];
     }
 
     static getPropsFromStores() {
         return assign({},
-            MenuStore.getState(),
             ContentStore.getState()
         );
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        if(nextProps == this.props) {
+            return false;
+        }
+
+        return true;
+    }
 
     render() {
 
         let classNames = classnames({
             "menu__group": true,
-            "menu__group--active": (this.props.active == this.props.id)
+            "menu__group--active": (this.props.isActive)
         });
 
         if(!this.props.type || this.props.type.indexOf(this.props.mime) > -1)
@@ -61,9 +66,20 @@ export default class MenuGroup extends React.Component {
         }
     }
 
+    // componentDidUpdate() {
+    //     if(this.props.defaultOpen) {
+    //         console.log('defaultopen');
+    //
+    //         CallbackHelper.register('menu-reset', () => {
+    //             this._setActive();
+    //         }, true);
+    //
+    //         this._setActive();
+    //     }
+    // }
+
     _setActive() {
         window.setTimeout(() => {
-            MenuActions.setContent(this.props.children);
             MenuActions.setActive(this.props.id);
         }, 0);
     }
@@ -71,7 +87,6 @@ export default class MenuGroup extends React.Component {
     _onClick() {
         CallbackHelper.call('content-focus');
 
-        MenuActions.setContent(this.props.children);
         MenuActions.setActive(this.props.id);
     }
 }

@@ -1,4 +1,8 @@
 import React from 'react';
+import assign from 'object-assign';
+import connectToStores from 'alt-utils/lib/connectToStores';
+import ConfigStore from '../../stores/ConfigStore';
+import MenuStore from '../../stores/MenuStore';
 
 import MenuGroup from './MenuGroup';
 import MenuContent from './MenuContent';
@@ -21,42 +25,107 @@ import AlignEntry from './entries/AlignEntry';
 
 import './Menu.scss';
 
-
+@connectToStores
 export default class Menu extends React.Component {
+
+    static getStores() {
+        return [ConfigStore, MenuStore];
+    }
+
+    static getPropsFromStores() {
+        return assign({},
+            ConfigStore.getState(),
+            MenuStore.getState()
+        );
+    }
 
     render() {
         return(
             <div className="menu">
-                <MenuGroup name="Datei" id="file" defaultOpen={true}>
-                    <NewEntry />
-                    <OpenEntry />
-                    <SaveEntry />
-                </MenuGroup>
-                <MenuGroup name="Format" id="format" type={['text/html']}>
-                    <BoldEntry />
-                    <ItalicEntry />
-                    <UnderlineEntry />
 
-                    <HeadlineEntry size={1} />
-                    <HeadlineEntry size={2} />
-                    <HeadlineEntry size={3} />
-                    <HeadlineEntry size={4} />
-                    <HeadlineEntry size={5} />
+                {this._renderMenuGroups()}
 
-                    <ListEntry type="ul" />
-                    <ListEntry type="ol" />
-
-                    <LinkEntry />
-
-                    <AlignEntry />
-                    <AlignEntry type="center" />
-                    <AlignEntry type="right" />
-                    <AlignEntry type="justify" />
-                </MenuGroup>
-
-
-                <MenuContent />
+                {this._renderMenuContent()}
             </div>
         );
+    }
+
+    _renderMenuGroups() {
+        let retval = [];
+        let defaultOpen = true;
+
+
+        if(this._isGroupVisible('file')) {
+            retval.push(
+                <MenuGroup name="Datei"
+                           key='file'
+                           id="file"
+                           defaultOpen={defaultOpen}
+                           isActive={this.props.active == 'file'}/>
+            );
+
+            defaultOpen = false;
+        }
+
+        if(this._isGroupVisible('format')) {
+            retval.push(
+                <MenuGroup name="Format"
+                           key='format'
+                           id="format"
+                           type={['text/html']}
+                           defaultOpen={defaultOpen}
+                           isActive={this.props.active == 'format'}/>
+            );
+
+            defaultOpen = false;
+        }
+
+        return retval;
+    }
+
+    _renderMenuContent() {
+        switch (this.props.active) {
+            case 'file':
+                if(this._isGroupVisible('file')) return(
+                    <MenuContent>
+                        <NewEntry />
+                        <OpenEntry />
+                        <SaveEntry />
+                    </MenuContent>
+                );
+            case 'format':
+                if(this._isGroupVisible('format')) return(
+                    <MenuContent>
+                        <BoldEntry />
+                        <ItalicEntry />
+                        <UnderlineEntry />
+
+                        <HeadlineEntry size={1}/>
+                        <HeadlineEntry size={2}/>
+                        <HeadlineEntry size={3}/>
+                        <HeadlineEntry size={4}/>
+                        <HeadlineEntry size={5}/>
+
+                        <ListEntry type="ul"/>
+                        <ListEntry type="ol"/>
+
+                        <LinkEntry />
+
+                        <AlignEntry />
+                        <AlignEntry type="center"/>
+                        <AlignEntry type="right"/>
+                        <AlignEntry type="justify"/>
+                    </MenuContent>
+                );
+
+                if(this._isGroupVisible(type))
+                    break;
+            default:
+                return null;
+        }
+    }
+
+    _isGroupVisible(type) {
+        return !this.props.menu || this.props.menu[type] == null || this.props.menu[type] == true;
     }
 }
