@@ -101,14 +101,6 @@ export default class ContentStore {
         xhr.send();
     }
 
-    setLastSelection(selection) {
-        this.state.selection = selection.getRangeAt(0);
-
-        this.setState({
-            contentFocused: false
-        });
-    }
-
     setFocused() {
         this.setState({
             contentFocused: true
