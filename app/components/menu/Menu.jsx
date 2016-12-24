@@ -11,6 +11,7 @@ import MenuContent from './MenuContent';
 import NewEntry from './entries/NewEntry';
 import SaveEntry from './entries/SaveEntry';
 import OpenEntry from './entries/OpenEntry';
+import ExportEntry from './entries/ExportEntry';
 
 import BoldEntry from './entries/BoldEntry';
 import ItalicEntry from './entries/ItalicEntry';
@@ -111,6 +112,7 @@ export default class Menu extends React.Component {
                         <NewEntry />
                         <OpenEntry />
                         <SaveEntry />
+                        <ExportEntry />
                     </MenuContent>
                 );
             case 'format':
