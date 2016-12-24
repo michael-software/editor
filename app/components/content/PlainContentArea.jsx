@@ -51,6 +51,7 @@ export default class PlainContentArea extends React.Component {
     componentDidMount() {
         CallbackHelper.register("content-focus", this._focus.bind(this), true);
         CallbackHelper.register("content-getContent", this._getContent.bind(this), true);
+        CallbackHelper.register("content-getElement", this._getElement.bind(this), true);
 
         this._textarea.focus();
         this._resize();
@@ -68,6 +69,10 @@ export default class PlainContentArea extends React.Component {
                 end: this._textarea.selectionEnd
             };
         }, false);
+    }
+
+    _getElement() {
+        return this._textarea;
     }
 
     _resize() {

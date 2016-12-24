@@ -82,6 +82,7 @@ export default class HtmlContentArea extends React.Component {
     componentDidMount() {
         CallbackHelper.register("content-focus", this._focus.bind(this), true);
         CallbackHelper.register("content-getContent", this._getContent.bind(this), true);
+        CallbackHelper.register("content-getElement", this._getElement.bind(this), true);
 
         this._editor.focus();
 
@@ -106,6 +107,10 @@ export default class HtmlContentArea extends React.Component {
             if (window.getSelection().rangeCount)
                 this._getParentNode(window.getSelection().getRangeAt(0).startContainer);
         }, 0);
+    }
+
+    _getElement() {
+        return this._editor;
     }
 
     _onKeyDown(event) {
