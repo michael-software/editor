@@ -11,7 +11,8 @@ export default class ContentActions {
             'load',
             'loadUrl',
             'lastSelection',
-            'setFocused'
+            'setFocused',
+            'export'
         );
     }
 

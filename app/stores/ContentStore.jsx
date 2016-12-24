@@ -5,6 +5,8 @@ import ContentActions from '../actions/ContentActions';
 
 import CallbackHelper from '../utils/CallbackHelper';
 
+import jsPDF from '../jspdf/MultilineText';
+
 @createStore(alt)
 export default class ContentStore {
 
@@ -114,6 +116,26 @@ export default class ContentStore {
             let selObj = window.getSelection();
             selObj.removeAllRanges();
             selObj.addRange(currentRange);
+        }
+    }
+
+    export(type) {
+        let content = CallbackHelper.call('content-getElement');
+
+        if(type == 'PDF') {
+            if(this.state.mime == 'text/plain') {
+                var doc = new jsPDF();
+                doc.multilineText(20, 20, content.value);
+                doc.save('Test.pdf');
+            } else {
+                var doc = new jsPDF();
+                doc.fromHTML(content, 15, 15, {
+                    'width': 170
+                });
+
+                console.log(content);
+                doc.save('Test.pdf');
+            }
         }
     }
 }
